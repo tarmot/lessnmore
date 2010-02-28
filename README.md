@@ -2,7 +2,7 @@ Lessn More 2.0.3
 ================
 
 Homepage: <http://lessnmore.net>  
-Source/Fork: <http://github.com/alanhogan/lessmore>
+Source/Fork: <http://github.com/alanhogan/lessnmore>
 
 Lessn More is a free, open-source personal URL shortener.
 
