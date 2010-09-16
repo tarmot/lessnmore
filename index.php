@@ -61,9 +61,14 @@ while($token != '') // Loop so we can handle aliases
 	{
 		// 404!
 		// no redirect
-		header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
-		header('Status:404');
-		die('404: Nothing found for '.htmlentities($token));
+		if (defined('ERROR_404_URL') && ERROR_404_URL !== NULL){
+			header("Location: ".ERROR_404_URL);
+			die;			
+		} else {
+			header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+			header('Status:404');
+			die;
+		}
 	}
 }
 
