@@ -1,3 +1,8 @@
+2.1.1
+- Merged changes from jfro’s fork.
+	- Changed insert queries to support Postgres
+	- Avoid php short tags which aren't always enabled
+
 2.1.0
 - Fixed issue [#4](http://github.com/alanhogan/lessnmore/issues#issue/4) regarding the bookmarklets and clicking ‘Cancel’ in the prompt.
 - Fixed issue [#6](http://github.com/alanhogan/lessnmore/issues#issue/6) regarding 404s (thanks to repearhulk for the patch).
