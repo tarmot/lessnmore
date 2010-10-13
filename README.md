@@ -1,4 +1,4 @@
-Lessn More 2.0.3
+Lessn More 2.0.4
 ================
 
 Homepage: <http://lessnmore.net>  
@@ -16,6 +16,7 @@ Lessn More is a free, open-source personal URL shortener.
 *	An optional "banned word list" to prevent auto-generating offensive URLs.
 *	Support for more shortened URLs than Lessn
 *	The ability to add multiple slugs that point to the same long URL, unlike Lessn
+*	Trims punctuation from the right of the slug, per [best practices][bestp]
 
 ### Attention to detail
 
@@ -80,6 +81,10 @@ Lessn More is a Buttered URLs [fork](http://github.com/alanhogan/lessnmore) by [
 Lessn More increased the robustness of the insertion algorithm,
 prevented slug conflicts, updated the bookmarklets, added multiple auto-shorten modes,
 banned word lists, and enhanced security.
+
+### v2.1
+
+Trims punctuation from the right of the slug, per [best practices](http://alanhogan.com/tips/rel-shortlink-for-short-urls)
 
 
 Legal
