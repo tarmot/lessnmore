@@ -2,11 +2,11 @@ Lessn More 2.0.3
 ================
 
 Homepage: <http://lessnmore.net>  
-Source/Fork: <http://github.com/alanhogan/lessmore>
+Source/Fork: <http://github.com/alanhogan/lessnmore>
 
 Lessn More is a free, open-source personal URL shortener.
 
-### Features
+## Features
 
 *	The ability to use custom short URLs (slugs), unlike Lessn
 *	A bookmarklet that even supports custom short URLs
@@ -17,7 +17,7 @@ Lessn More is a free, open-source personal URL shortener.
 *	Support for more shortened URLs than Lessn
 *	The ability to add multiple slugs that point to the same long URL, unlike Lessn
 
-#### Attention to detail
+### Attention to detail
 
 *	Adding a new slug for a URL already in the database will become the "canonical"
 	short URL, and will be returned if you ask Lessn More (either by API or not)
@@ -35,7 +35,7 @@ Lessn More is a free, open-source personal URL shortener.
 *	An easy migration script will upgrade your database 
 	from an existing Lessn migration.
 
-#### Caveats
+### Caveats
 
 *	This shortener is not appropriate when there is a good chance that two or more URLs
 	will be shrunk at the same time. (Simultaneous reads are, of course, fine.)
@@ -116,17 +116,18 @@ upload the .htaccess file. Enable "Show invisible files"
 in your FTP application. It's also possible that your host doesn't like
 the <IfModule>; try taking it out (this happens on 1and1).
 
-### Upgrading ###
+Upgrading
+----------
 
 If you are upgrading from a previous version of Lessn or ButteredURLs:
 
-#### Upgrading from Lessn 1.0.0 or 1.0.1
+### Upgrading from Lessn 1.0.0 or 1.0.1
 
 1. Using a tool like PhpMyAdmin or the MySQL CLI change the 
    checksum index type to INDEX (from UNIQUE).
 2.	Continue below with "ALL VERSIONS"
 
-#### ALL VERSIONS: Upgrading to Lessn More 2.0
+### ALL VERSIONS: Upgrading to Lessn More 2.0
 
 1.	You are strongly encouraged to back up your database.
 1.	Note some old redirections so you can manually check they still work after upgrading (they should, but hey, it's important).

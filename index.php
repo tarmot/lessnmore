@@ -22,8 +22,9 @@ if (RECORD_URL_STATS OR $show_stats) {
 // Redirect lookup
 while($token != '') // Loop so we can handle aliases
 {
-	// Look up slug
-	// TODO: Use PDO::prepare in "The other index.php"
+	// Look up slug, after removing mistaken URL additions
+	$token = rtrim(urldecode($token), ')>]}.,-;!\'"');
+	
 	$stmt = $db->prepare('SELECT * FROM '.DB_PREFIX.'urls WHERE BINARY custom_url = BINARY :slug AND custom_url = :slug LIMIT 1');
 	$stmt->execute(array('slug'=>$token));
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -60,9 +61,14 @@ while($token != '') // Loop so we can handle aliases
 	{
 		// 404!
 		// no redirect
-		header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
-		header('Status:404');
-		die('404: Nothing found for '.htmlentities($token));
+		if (defined('ERROR_404_URL') && ERROR_404_URL !== NULL){
+			header("Location: ".ERROR_404_URL);
+			die;			
+		} else {
+			header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+			header('Status:404');
+			die;
+		}
 	}
 }
 
