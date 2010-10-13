@@ -1,4 +1,4 @@
-Lessn More 2.0.4
+Lessn More 2.1.0
 ================
 
 Homepage: <http://lessnmore.net>  
