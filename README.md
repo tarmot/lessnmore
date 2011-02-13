@@ -44,6 +44,7 @@ Lessn More is a free, open-source personal URL shortener.
 	other than MySQL. YMMV. Please [report any issues][issues].
 *	Changing settings such as the allowed character set, while a supported use case,
 	should be done seldom, and with deliberation.
+*    There is currently a [bug in SQLite support](https://github.com/alanhogan/lessnmore/issues/#issue/7).
 
 [markdn]:  http://bit.ly/mkdnsyntax   "This document is written in Markdown."
 [convert]: http://tinyurl.com/mkdnwmd "Markdown editor with instant HTML preview"
@@ -58,7 +59,7 @@ Requirements
 
 * PHP 5.1+
 * PHP's PDO
-* MySQL, PostgreSQL, or SQLite
+* MySQL, PostgreSQL, or SQLite <small>(though [see this](https://github.com/alanhogan/lessnmore/issues/#issue/7) for SQLite support)</small>
 * mod_rewrite or similar rewrite system (see .htaccess)
 
 
