@@ -120,7 +120,9 @@ Installation instructions are different depending on if you are upgrading or doi
 **NOTE:** If your Lessn'd urls aren't working you probably didn't
 upload the .htaccess file. Enable "Show invisible files" 
 in your FTP application. It's also possible that your host doesn't like
-the <IfModule>; try taking it out (this happens on 1and1).
+the `<IfModule>` directives; try removed them and just leaving the 
+`Rewrite*` lines that were wrapped by the `<IfModule>`. 
+(This seems to happen on 1and1).
 
 Upgrading
 ----------
