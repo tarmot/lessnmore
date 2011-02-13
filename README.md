@@ -113,10 +113,12 @@ Installation instructions are different depending on if you are upgrading or doi
 2. For the shortest URLs possible, upload the contents of this
 	directory to your domain's root public folder.
 
-3. Visit http://doma.in/-/ to log in & start using Lessn More!
-	Be sure to grab the bookmarklets. (The required database table is created 
-	automatically the first time you visit Lessn).
+3. Visit http://doma.in/install.php to create the necessary
+	database tables. (Watch for errors.)
 
+4. Visit http://doma.in/-/ to log in & start using Lessn More!
+	Be sure to grab the bookmarklets. 
+	
 **NOTE:** If your Lessn'd urls aren't working you probably didn't
 upload the .htaccess file. Enable "Show invisible files" 
 in your FTP application. It's also possible that your host doesn't like
