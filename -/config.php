@@ -19,6 +19,7 @@ define('COOKIE_SALT', 	'1a5al-sSXqO[]P83Rfoo');
 define('API_SALT',		'XqO)-O4K2595JMEOQ');
 
 // Your timezone. Because your server isn't necessarily on your time
+// Use a timezone string from here: http://www.php.net/manual/en/timezones.php
 // define('TIMEZONE', 'America/Winnipeg');
 
 // How should short URL slugs be generated? 

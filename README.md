@@ -87,6 +87,14 @@ banned word lists, and enhanced security.
 
 Trims punctuation from the right of the slug, per [best practices](http://alanhogan.com/tips/rel-shortlink-for-short-urls)
 
+### v2.2
+
+Better stats page (thanks, [mattwiebe](https://github.com/mattwiebe)!).
+
+Other small fixes and improvements.
+
+Supports a custom timezone in `config.php`.
+
 
 Legal
 -----
@@ -108,7 +116,7 @@ Installation instructions are different depending on if you are upgrading or doi
 	create a Lessn username and password then enter your
 	database connection details.
 	You may also choose other settings such as
-	authentication salts and a default home page.
+	authentication salts, a default home page, and your current time zone.
 
 2. For the shortest URLs possible, upload the contents of this
 	directory to your domain's root public folder.
