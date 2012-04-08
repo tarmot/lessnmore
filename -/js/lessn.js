@@ -12,8 +12,19 @@ jQuery(document).ready(function($) {
 			table = self.next("table"),
 			id = table.attr("id");
 
-			self.attr('data-target', id).click(showTable);;
+			self.attr('data-target', id).click(showTable);
 			table.attr({id: id}).hide().appendTo(div);
+		}).click(function(e){
+      $this = $(this);
+		  if ($this.hasClass('active')) {
+        e.preventDefault();
+		    // refresh!
+        // current URL: 
+        var refreshURL = (window.location.pathname + window.location.search + ' #stats_body');
+        $('#wrap').load(refreshURL, undefined, function(){
+          window.setTimeout(function(){window.reInitStatsTables()}, 0);
+        });
+		  }
 		});
 
 		$(document).keydown(function(e){
@@ -64,5 +75,7 @@ jQuery(document).ready(function($) {
 		$.bbq.pushState(hash);
 	}
 	
-	
+	window.reInitStatsTables = init;
+  
+  
 });
