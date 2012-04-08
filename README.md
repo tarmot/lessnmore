@@ -112,6 +112,8 @@ Installation instructions are different depending on if you are upgrading or doi
 
 **ONLY** follow these instructions if you are not upgrading!
 
+0. Copy or rename /-/config-example.php to /-/config.php.
+
 1. Open /-/config.php in a plaintext editor and
 	create a Lessn username and password then enter your
 	database connection details.
