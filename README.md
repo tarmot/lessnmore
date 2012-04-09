@@ -172,7 +172,7 @@ If you are upgrading from a previous version of Lessn or ButteredURLs:
 
 Just upload the latest copy of Lessn More to your server, but skip or delete install.php.
 
-(Note that since v2.2, there is only a config-example.php file in the distribution, and no config.php file, so you will _not_ need to take care to avoid obliterating your existing config.php file – but it wouldn’t hurt to check first!)
+Note that since v2.2, there is only a config-example.php file in the distribution, and no config.php file. You will _not_ need to take care to avoid overwriting your existing config.php file, but do take care not to replace the whole `/-/` folder and your config.php file; please make a backup copy of it before upgrading.
 
 API
 ---

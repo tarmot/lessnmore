@@ -1,3 +1,17 @@
+2.2.0
+
+- Better stats page.
+
+- More compatible with sqlite (see [#7][]).
+
+- Other small fixes and improvements.
+
+- Supports a custom timezone in `config.php`.
+
+- Special thanks to [Matt Wiebe](https://github.com/mattwiebe) for a lot of these changes.
+
+
+
 2.1.1
 - Merged changes from jfro’s fork.
 	- Changed insert queries to support Postgres
