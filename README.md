@@ -1,4 +1,4 @@
-Lessn More 2.1.1
+Lessn More 2.2.0
 ================
 
 Homepage: <http://lessnmore.net>  
@@ -17,6 +17,7 @@ Lessn More is a free, open-source personal URL shortener.
 *	Support for more shortened URLs than Lessn
 *	The ability to add multiple slugs that point to the same long URL, unlike Lessn
 *	Trims punctuation from the right of the slug, per [best practices][bestp]
+* Compatible with MySQL, Postgres, and SQLite
 
 ### Attention to detail
 
@@ -44,7 +45,6 @@ Lessn More is a free, open-source personal URL shortener.
 	other than MySQL. YMMV. Please [report any issues][issues].
 *	Changing settings such as the allowed character set, while a supported use case,
 	should be done seldom, and with deliberation.
-*    There is currently a [bug in SQLite support](https://github.com/alanhogan/lessnmore/issues/#issue/7).
 
 [markdn]:  http://bit.ly/mkdnsyntax   "This document is written in Markdown."
 [convert]: http://tinyurl.com/mkdnwmd "Markdown editor with instant HTML preview"
@@ -89,11 +89,15 @@ Trims punctuation from the right of the slug, per [best practices](http://alanho
 
 ### v2.2
 
-Better stats page (thanks, [mattwiebe](https://github.com/mattwiebe)!).
+Better stats page.
+
+More compatible with sqlite (see [#7][]).
 
 Other small fixes and improvements.
 
 Supports a custom timezone in `config.php`.
+
+Special thanks to [Matt Wiebe](https://github.com/mattwiebe) for a lot of these changes.
 
 
 Legal
@@ -147,7 +151,7 @@ If you are upgrading from a previous version of Lessn or ButteredURLs:
    checksum index type to INDEX (from UNIQUE).
 2.	Continue below with "ALL VERSIONS"
 
-### ALL VERSIONS: Upgrading to Lessn More 2.0
+### ALL VERSIONS: Upgrading to Lessn More 2
 
 1.	You are strongly encouraged to back up your database.
 1.	Note some old redirections so you can manually check they still work after upgrading (they should, but hey, it's important).
@@ -156,7 +160,7 @@ If you are upgrading from a previous version of Lessn or ButteredURLs:
 	decisions about.
 1.	Upload all lessn/BU files, excluding config.php, or making sure to use the new one.
 1.	Go to http://doma.in/install.php?start=N where 
-	N is 2 if upgrading from Lessen 1.0, or    
+	N is 2 if upgrading from Lessn 1.0, or    
 	N is 4 if upgrading from ButteredURLs 1.1.
 1.	Test some old known working redirections
 1.	Delete install.php.
@@ -164,6 +168,11 @@ If you are upgrading from a previous version of Lessn or ButteredURLs:
 
 **Congratulations.** You are running the latest version of Lessn More.
 
+### Upgrading from Lessn More 2.0 or 2.1 to LM 2.2
+
+Just upload the latest copy of Lessn More to your server, but skip or delete install.php.
+
+(Note that since v2.2, there is only a config-example.php file in the distribution, and no config.php file, so you will _not_ need to take care to avoid obliterating your existing config.php file – but it wouldn’t hurt to check first!)
 
 API
 ---
@@ -175,3 +184,5 @@ Issues
 -------
 
 To report an issue or check known issues, visit [the Lessn More issue tracker on GitHub][issues].
+
+[#7]: https://github.com/alanhogan/lessnmore/issues/7
