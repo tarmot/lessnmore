@@ -195,7 +195,11 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 
 	// Is there already a row in the DB going to this same URL?
 	$checksum 		= (int) sprintf('%u', crc32($url));
-	$result = $db->prepare("SELECT id, custom_url, redir_type FROM {$prefix}urls WHERE checksum=? AND BINARY url = BINARY ? AND url = ? AND redir_type <> 'gone' ORDER BY redir_type DESC LIMIT 1"); //sort so custom is before auto.
+	$result = $db->prepare("SELECT id, custom_url, redir_type FROM {$prefix}urls WHERE checksum=? AND "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    .' url = '
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." ? AND url = ? AND redir_type <> 'gone' ORDER BY redir_type DESC LIMIT 1"); //sort so custom is before auto.
 	$result->bindValue(1, (int)$checksum);
 	$result->bindValue(2, $url);
 	$result->bindValue(3, $url);
@@ -219,7 +223,11 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 	{	// user wants to assign a custom short URL
 		$custom_url = trim($_GET['custom_url']);
 		// check if the slug is already in use
-		$stmt = $db->prepare("SELECT * FROM {$prefix}urls WHERE BINARY custom_url = BINARY ? AND  custom_url =  ?");
+		$stmt = $db->prepare("SELECT * FROM {$prefix}urls WHERE "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    .' custom_url = '
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    .' ? AND  custom_url =  ?');
 		$stmt->bindValue(1, $custom_url);
 		$stmt->bindValue(2, $custom_url);
 		$stmt->execute();
@@ -266,7 +274,15 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 		{
 			// User added a new custom short URL even though that URL is already in the DB
 			// Update old redirections so they are no more than aliases of the new one ;)
-			$update_to_alias_sql = "UPDATE {$prefix}urls SET redir_type = 'alias', url = :slug, checksum = :newchecksum WHERE checksum = :checksum AND url = :url AND BINARY url = BINARY :url AND (redir_type = 'custom' OR redir_type = 'auto') AND BINARY custom_url <> BINARY :slug";
+			$update_to_alias_sql = "UPDATE {$prefix}urls SET redir_type = 'alias', url = :slug, checksum = :newchecksum WHERE checksum = :checksum AND url = :url AND "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." url = "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." :url AND (redir_type = 'custom' OR redir_type = 'auto') AND "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." custom_url <> "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." :slug";
 			$updt_a = $db->prepare($update_to_alias_sql);
 			$updt_a->execute(array(
 				'checksum'		=> $checksum,
@@ -333,7 +349,11 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 			$slug = BaseIntEncoder::encode($counter, $glyphs, $base);
 			
 			// Check if slug is free
-			$stmt = $db->prepare("SELECT custom_url, redir_type FROM {$prefix}urls WHERE BINARY custom_url = BINARY :slug AND custom_url = :slug");
+			$stmt = $db->prepare("SELECT custom_url, redir_type FROM {$prefix}urls WHERE "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." custom_url = "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." :slug AND custom_url = :slug");
 			$stmt->execute(array('slug'=>$slug));
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			if( ! $row ) //okay to insert 
@@ -376,7 +396,11 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 			
 			$counter = bcadd($low, bcmul(bcsub($high, $low), '0.5', 0)); // at least +1
 			$slug = BaseIntEncoder::encode($counter, $glyphs, $base);
-			$stmt = $db->prepare("SELECT custom_url, redir_type FROM {$prefix}urls WHERE  custom_url = :slug AND BINARY custom_url = BINARY :slug");
+			$stmt = $db->prepare("SELECT custom_url, redir_type FROM {$prefix}urls WHERE  custom_url = :slug AND "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." custom_url = "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." :slug");
 			$stmt->execute(array('slug'=>$slug));
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			if( ! $row ) // empty spot in the DB!
@@ -407,7 +431,11 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 			}
 			
 			if( ! $validated){
-				$stmt = $db->prepare("SELECT custom_url, redir_type FROM {$prefix}urls WHERE  custom_url = :slug AND BINARY custom_url = BINARY :slug");
+				$stmt = $db->prepare("SELECT custom_url, redir_type FROM {$prefix}urls WHERE  custom_url = :slug AND "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." custom_url = "
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    ." :slug");
 				$stmt->execute(array('slug'=>$slug));
 				$row = $stmt->fetch(PDO::FETCH_ASSOC);
 				if($row) 

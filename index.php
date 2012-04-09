@@ -25,7 +25,11 @@ while($token != '') // Loop so we can handle aliases
 	// Look up slug, after removing mistaken URL additions
 	$token = rtrim(urldecode($token), ')>]}.,-;!\'"');
 	
-	$stmt = $db->prepare('SELECT * FROM '.DB_PREFIX.'urls WHERE BINARY custom_url = BINARY :slug AND custom_url = :slug LIMIT 1');
+	$stmt = $db->prepare('SELECT * FROM '.DB_PREFIX.'urls WHERE '
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    .' custom_url = '
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    .' :slug AND custom_url = :slug LIMIT 1');
 	$stmt->execute(array('slug'=>$token));
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 

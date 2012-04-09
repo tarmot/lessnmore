@@ -25,7 +25,11 @@ class OnlyExplicitSlugs extends Migration
 			.'AND id > :min_id '
 			.'ORDER BY id '
 			.'LIMIT '.$batch;
-		$check_sql = 'SELECT * FROM '.DB_PREFIX.'urls WHERE BINARY custom_url = BINARY :custom_url';
+		$check_sql = 'SELECT * FROM '.DB_PREFIX.'urls WHERE '
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    .' custom_url = '
+    .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+    .' :custom_url';
 		$explicit_sql = 'UPDATE '.DB_PREFIX.'urls SET custom_url = :custom_url WHERE id=:id LIMIT 1';
 		
 		// --- STEP ONE ---
