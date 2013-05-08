@@ -58,9 +58,9 @@ Requirements
 -------------
 
 * PHP 5.1+
-* PHP's PDO
-* MySQL, PostgreSQL, or SQLite <small>(though [see this](https://github.com/alanhogan/lessnmore/issues/#issue/7) for SQLite support)</small>
-* mod_rewrite or similar rewrite system (see .htaccess)
+* PHP's PDO (usually included in PHP builds)
+* Database: MySQL (most solidly supported), PostgreSQL, or SQLite <small>(though [see this](https://github.com/alanhogan/lessnmore/issues/#issue/7) for SQLite support)</small>
+* While your server doesn’t need to be Apache, the project ships with an Apache `.htaccess` file to handle redirecting requests to the Lessn More redirection engine, for your convenience. Michael McKelvaney has written about [using Nginx instead].
 
 
 History
