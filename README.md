@@ -188,3 +188,17 @@ Issues
 To report an issue or check known issues, visit [the Lessn More issue tracker on GitHub][issues].
 
 [#7]: https://github.com/alanhogan/lessnmore/issues/7
+
+Installation tips
+-----------------
+
+1. You may need to install the following packages for PHP: 
+
+	* php-bcmath
+	* php-pdo
+
+2. If you are getting 404 Not Found errors when you try to use the shortlinks, and you have got the `.htaccess` file in place correctly, check if your Apache httpd.conf has `AllowOverride` set to `All`. If it is `None` then the .htaccess will get ignored.
+
+3. To help debug installation problems, add this line to the end of ./-/config.php: 
+
+		define('DISPLAY_ERRORS', true); 
