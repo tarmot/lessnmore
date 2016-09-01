@@ -29,7 +29,7 @@ define('API_SALT',		'XqO)-O4K2595JMEOQ');
 // 'base62'       - Mixed case. [0-9a-zA-Z]
 // 'smart'        - Like the original Lessn, but excludes homoglyphs.
 //                - [0-9a-z] except [o0l1]
-// Best practices are documented at <http://ajh.us/k#service-homoglyphs>
+// Best practices are documented at <https://alanhogan.com/tips/rel-shortlink-for-short-urls#service-homoglyphs>
 define('AUTO_SLUG_METHOD', 'base36'); //CHANGE to a *smart method!
 
 // String with any characters you would like to manually exclude from future 

@@ -1,8 +1,8 @@
 Lessn More 2.2.0
 ================
 
-Homepage: <http://lessnmore.net>  
-Source/Fork: <http://github.com/alanhogan/lessnmore>
+Homepage: <https://lessnmore.net>  
+Source/Fork: <https://github.com/alanhogan/lessnmore>
 
 Lessn More is a free, open-source personal URL shortener.
 
@@ -12,7 +12,7 @@ Lessn More is a free, open-source personal URL shortener.
 *	A bookmarklet that even supports custom short URLs
 *	An [API][] that supports the same commands as the web interface
 *	Different auto-shorten modes (optional mixed case),
-*	The ability to avoid lookalike characters, and 
+*	The ability to avoid lookalike characters, and
 *	An optional "banned word list" to prevent auto-generating offensive URLs.
 *	Support for more shortened URLs than Lessn
 *	The ability to add multiple slugs that point to the same long URL, unlike Lessn
@@ -34,14 +34,14 @@ Lessn More is a free, open-source personal URL shortener.
 	on the order of O(1) (constant time).)
 *	Compliant with [URL shortener best practices and standards][bestp]
 	whenever possible
-*	An easy migration script will upgrade your database 
+*	An easy migration script will upgrade your database
 	from an existing Lessn migration.
 
 ### Caveats
 
 *	This shortener is not appropriate when there is a good chance that two or more URLs
 	will be shrunk at the same time. (Simultaneous reads are, of course, fine.)
-*	Lessn More 2.0 is a new release and has not been fully tested on databases 
+*	Lessn More 2.0 is a new release and has not been fully tested on databases
 	other than MySQL. YMMV. Please [report any issues][issues].
 *	Changing settings such as the allowed character set, while a supported use case,
 	should be done seldom, and with deliberation.
@@ -49,10 +49,10 @@ Lessn More is a free, open-source personal URL shortener.
 [markdn]:  http://bit.ly/mkdnsyntax   "This document is written in Markdown."
 [convert]: http://tinyurl.com/mkdnwmd "Markdown editor with instant HTML preview"
 
-[bestp]:   http://alanhogan.com/tips/rel-shortlink-for-short-urls "Everything you need to know about rel-shortlink and short URLs"
+[bestp]:   https://alanhogan.com/tips/rel-shortlink-for-short-urls "Everything you need to know about rel-shortlink and short URLs"
 
-[issues]:  http://github.com/alanhogan/lessnmore/issues "Bugs & Issues on GitHub"
-[API]:     http://lessnmore.net/api "Lessn More API documentation"
+[issues]:  https://github.com/alanhogan/lessnmore/issues "Bugs & Issues on GitHub"
+[API]:     https://lessnmore.net/api "Lessn More API documentation"
 
 Requirements
 -------------
@@ -75,19 +75,19 @@ written by [Shaun Inman](http://shauninman.com/). It required PHP, MySQL, and mo
 
 ### v1.1
 
-Buttered URLs is a Lessn [fork](http://github.com/jfro/butteredurls) by [Jeremy Knope](http://buttered-cat.com/).
+Buttered URLs is a Lessn [fork](https://github.com/jfro/butteredurls) by [Jeremy Knope](http://buttered-cat.com/).
 Buttered URLs added logging, custom URLs, a migration mechanism, and support for more database types.
 
 ### v2.0
 
-Lessn More is a Buttered URLs [fork](http://github.com/alanhogan/lessnmore) by [Alan Hogan](http://alanhogan.com/).
+Lessn More is a Buttered URLs [fork](https://github.com/alanhogan/lessnmore) by [Alan Hogan](https://alanhogan.com/).
 Lessn More increased the robustness of the insertion algorithm,
 prevented slug conflicts, updated the bookmarklets, added multiple auto-shorten modes,
 banned word lists, and enhanced security.
 
 ### v2.1
 
-Trims punctuation from the right of the slug, per [best practices](http://alanhogan.com/tips/rel-shortlink-for-short-urls)
+Trims punctuation from the right of the slug, per [best practices](https://alanhogan.com/tips/rel-shortlink-for-short-urls)
 
 ### v2.2
 
@@ -133,13 +133,13 @@ Installation instructions are different depending on if you are upgrading or doi
 	database tables. (Watch for errors.)
 
 4. Visit http://doma.in/-/ to log in & start using Lessn More!
-	Be sure to grab the bookmarklets. 
-	
+	Be sure to grab the bookmarklets.
+
 **NOTE:** If your Lessn'd urls aren't working you probably didn't
-upload the .htaccess file. Enable "Show invisible files" 
+upload the .htaccess file. Enable "Show invisible files"
 in your FTP application. It's also possible that your host doesn't like
-the `<IfModule>` directives; try removed them and just leaving the 
-`Rewrite*` lines that were wrapped by the `<IfModule>`. 
+the `<IfModule>` directives; try removed them and just leaving the
+`Rewrite*` lines that were wrapped by the `<IfModule>`.
 (This seems to happen on 1and1).
 
 Upgrading
@@ -149,7 +149,7 @@ If you are upgrading from a previous version of Lessn or ButteredURLs:
 
 ### Upgrading from Lessn 1.0.0 or 1.0.1
 
-1. Using a tool like PhpMyAdmin or the MySQL CLI change the 
+1. Using a tool like PhpMyAdmin or the MySQL CLI change the
    checksum index type to INDEX (from UNIQUE).
 2.	Continue below with "ALL VERSIONS"
 
@@ -161,7 +161,7 @@ If you are upgrading from a previous version of Lessn or ButteredURLs:
 	There will be new options you will want to make
 	decisions about.
 1.	Upload all lessn/BU files, excluding config.php, or making sure to use the new one.
-1.	Go to http://doma.in/install.php?start=N where 
+1.	Go to http://doma.in/install.php?start=N where
 	N is 2 if upgrading from Lessn 1.0, or    
 	N is 4 if upgrading from ButteredURLs 1.1.
 1.	Test some old known working redirections
@@ -192,13 +192,13 @@ To report an issue or check known issues, visit [the Lessn More issue tracker on
 Installation tips
 -----------------
 
-1. You may need to install the following packages for PHP: 
+1. You may need to install the following packages for PHP:
 
 	* php-bcmath
 	* php-pdo
 
 2. If you are getting 404 Not Found errors when you try to use the shortlinks, and you have got the `.htaccess` file in place correctly, check if your Apache httpd.conf has `AllowOverride` set to `All`. If it is `None` then the .htaccess will get ignored.
 
-3. To help debug installation problems, add this line to the end of ./-/config.php: 
+3. To help debug installation problems, add this line to the end of ./-/config.php:
 
-		define('DISPLAY_ERRORS', true); 
+		define('DISPLAY_ERRORS', true);

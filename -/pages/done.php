@@ -5,7 +5,7 @@
 <?php endif; ?>
 
 <p>
-	<!-- Using shortlink class. See http://ajh.us/k -->
+	<!-- Using shortlink class. See https://alanhogan.com/tips/rel-shortlink-for-short-urls -->
 	<input type="text" id="url" class="shortlink" value="<?php echo htmlspecialchars($new_url); ?>" onclick="this.focus();this.select();" />
 	→ <strong><?php echo htmlspecialchars($url, ENT_QUOTES, 'UTF-8'); ?></strong>
 </p>
