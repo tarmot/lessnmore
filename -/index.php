@@ -182,7 +182,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 	$url = $_GET['url'];
 	$slug = NULL;
 	$prefix = DB_PREFIX;
-	if (!preg_match('#^[^:]+://#', $url))
+	if (!preg_match('#^[^:]+:#', $url))
 	{
 		$url = 'http://'.$url;
 	}
