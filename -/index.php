@@ -30,7 +30,12 @@ REQUIRE 'stats.php';
 define('BCURLS_VERSION',	'2.0.1');
 
 define('BCURLS_DOMAIN', 	preg_replace('#^www\.#', '', $_SERVER['SERVER_NAME']));
-define('BCURLS_URL', 	str_replace('-/index.php', '', 'http://'.BCURLS_DOMAIN.$_SERVER['PHP_SELF']));
+
+// Will be `http` or `https` to match the current request.
+// You can hardcode one of those values if you want.
+define('BCURLS_PROTOCOL', PROTOCOL_OVERRIDE || 'http' . ($_SERVER['HTTPS'] ? 's' : ''));
+
+define('BCURLS_URL', 	str_replace('-/index.php', '', BCURLS_PROTOCOL.'://'.BCURLS_DOMAIN.$_SERVER['PHP_SELF']));
 define('BCURLS_PATH', 	realpath('.') );
 
 //don't reveal db prefix over HTTP. 16 chars is more than enough to avoid collisions
