@@ -1,21 +1,21 @@
 <?php
 
 /**
-*	
+*
 *	This file allows inserting redirections and displaying stats.
-*	
+*
 *	For redirections added, there are several possibilities:
-*	
+*
 *	1. Adding a new URL, no custom slug: Inserted, and new slug auto-generated.
-*	
+*
 *	2. Adding an existing URL, no custom slug: The old slug is returned.
-*	
+*
 *	3. Adding a new URL, with a custom slug:
-*	
+*
 *	4. Adding an existing URL, with a custom slug: The new slug is inserted anyway.
 *		The old redirection(s) become a "aliases" of the new one,
 *		so in case 2, the newest slug is returned (it’s "preferred".)
-*	
+*
 *	DEVELOPERS:
 *	Note the following possible redir_type values:
 *	-	'auto' - Automatically assigned slug. 301 redirect on access.
@@ -34,7 +34,7 @@ define('BCURLS_URL', 	str_replace('-/index.php', '', 'http://'.BCURLS_DOMAIN.$_S
 define('BCURLS_PATH', 	realpath('.') );
 
 //don't reveal db prefix over HTTP. 16 chars is more than enough to avoid collisions
-define('COOKIE_NAME', 	substr(md5(DB_PREFIX.COOKIE_SALT), 4, 16).'auth'); 
+define('COOKIE_NAME', 	substr(md5(DB_PREFIX.COOKIE_SALT), 4, 16).'auth');
 define('COOKIE_VALUE',	md5(USERNAME.PASSWORD.COOKIE_SALT));
 define('COOKIE_DOMAIN', '.'.BCURLS_DOMAIN);
 
@@ -55,7 +55,7 @@ function bcurls_find_banned_word($slug) {
 	global $bcurls_banned_words;
 	REQUIRE_ONCE 'banned_words.php';
 	foreach ($bcurls_banned_words as $banned){
-		$strpos = stripos($slug, $banned); 
+		$strpos = stripos($slug, $banned);
 		if ($strpos !== false) {
 			bc_log('Found banned word '.$banned.' in '.$slug);
 			// $slug = xBANNEDxx (length 9)
@@ -65,7 +65,7 @@ function bcurls_find_banned_word($slug) {
 			return strlen($slug) - strlen($banned) - $strpos;
 		}
 	}
-	return FALSE; 
+	return FALSE;
 }
 
 /**
@@ -75,9 +75,9 @@ function bcurls_find_banned_word($slug) {
 function bcurls_find_banned_glyph($slug) {
 	if (ADDITIONAL_HOMOGLYPHS_TO_AVOID === false)
 		return false;
-	$glyphs = str_split(ADDITIONAL_HOMOGLYPHS_TO_AVOID);	
+	$glyphs = str_split(ADDITIONAL_HOMOGLYPHS_TO_AVOID);
 	foreach ($glyphs as $banned){
-		$strpos = strpos($slug, $banned); 
+		$strpos = strpos($slug, $banned);
 		if ($strpos !== FALSE) {
 			bc_log('Found banned glyph '.$banned.' in '.$slug);
 			// $slug = xIxx (length 4)
@@ -87,7 +87,7 @@ function bcurls_find_banned_glyph($slug) {
 			return (strlen($slug) - 1 - $strpos);
 		}
 	}
-	return FALSE; 
+	return FALSE;
 }
 
 // handle login
@@ -210,7 +210,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 		include('pages/error.php');
 		exit;
 	}
-	
+
 	if ($row = $result->fetch(PDO::FETCH_ASSOC))
 	{
 		$existing_slug = $row['custom_url'];
@@ -218,7 +218,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 		$existing_slug = false;
 		if(LOG_MODE) bc_log('No existing slug'); //debug
 	}
-	
+
 	if(isset($_GET['custom_url']) && strlen(trim($_GET['custom_url'])))
 	{	// user wants to assign a custom short URL
 		$custom_url = trim($_GET['custom_url']);
@@ -236,7 +236,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 		{
 			$error = 'The custom short URL you attempted to use (/'.$row['custom_url'].') is already in use, and is '.($row['redir_type'] == 'alias' ? 'an alias for /': 'pointing to ').$row['url'];
 			if(isset($_GET['api'])) exit('Error: Token in use');
-			else 
+			else
 			{
 				include('pages/add.php');
 				exit;
@@ -244,7 +244,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 		}
 		elseif ($row) //implicit: they allowed overwrite
 		{
-			
+
 			$redir_type = 'custom';
 			$slug = $custom_url;
 			// Update
@@ -255,7 +255,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 				exit;
 			}
 		}
-		else 
+		else
 		{
 			$redir_type = 'custom';
 			$slug = $custom_url;
@@ -266,9 +266,9 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 				include('pages/error.php');
 				exit;
 			}
-		
+
 		}
-		
+
 		// Old records become aliases to this one
 		if($existing_slug !== false)
 		{
@@ -287,17 +287,17 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 			$updt_a->execute(array(
 				'checksum'		=> $checksum,
 			 	'url'			=> $url,
-				'slug'			=> $slug, 
+				'slug'			=> $slug,
 				'newchecksum' 	=> (int) sprintf('%u', crc32($slug)),
 			));
 			unset($updt_a);
 		}
 	}
-	elseif($existing_slug == false) 
+	elseif($existing_slug == false)
 	{	// auto-assign a slug for this new URL.
 		$redir_type = 'auto';
 		require_once 'library/BaseIntEncoder.php';
-		
+
 		// PREPARE
 		switch(AUTO_SLUG_METHOD) {
 			case 'base62':
@@ -323,19 +323,19 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 		}
 		$seek_count = 0; // When we need to skip tweets
 		$auto_seek_pow = 1.1513;
-		$custom_seek_pow = 1.031; 
+		$custom_seek_pow = 1.031;
 		$auto_assign_sql = "SELECT base10 FROM {$prefix}autoslug "
 			.'WHERE method = :method LIMIT 1';
 		$auto = $db->prepare($auto_assign_sql);
-		$auto->execute(array('method'=>AUTO_SLUG_METHOD)); 
+		$auto->execute(array('method'=>AUTO_SLUG_METHOD));
 		$counter = $auto->fetch(PDO::FETCH_ASSOC);
 		$counter = $counter['base10'];
-		
+
 		// For binary search //TODO
 		$high = $low = $counter;
-		
+
 		$total_attempts_remaining = 250;
-		
+
 		// Check to insert (seek)
 		while ($slug === NULL) {
 			// Never just try forever
@@ -345,9 +345,9 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 				include('pages/error.php');
 				exit;
 			}
-			
+
 			$slug = BaseIntEncoder::encode($counter, $glyphs, $base);
-			
+
 			// Check if slug is free
 			$stmt = $db->prepare("SELECT custom_url, redir_type FROM {$prefix}urls WHERE "
     .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
@@ -356,7 +356,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
     ." :slug AND custom_url = :slug");
 			$stmt->execute(array('slug'=>$slug));
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
-			if( ! $row ) //okay to insert 
+			if( ! $row ) //okay to insert
 			{
 				$high = $counter;
 				break; // found a suitable URL
@@ -364,7 +364,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 			else
 			{
 				$low = $counter;
-				$counter += ceil(pow(++$seek_count, 
+				$counter += ceil(pow(++$seek_count,
 					($row['redir_type'] == 'custom'
 						? $custom_seek_pow
 						: $auto_seek_pow
@@ -375,10 +375,10 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 				$slug = NULL;
 				continue;
 			}
-			
+
 		}
-		
-		
+
+
 		// Binary Search
 		if(LOG_MODE) bc_log("Before binary search: low: $low; high: $high; slug: $slug");
 		// Note: Low is always "known bad" and high is always "known good"
@@ -393,7 +393,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 				if(LOG_MODE) bc_log('Binary search decided to use '.$slug.' (counter '.$counter.") because high == low+1");
 				break;
 			}
-			
+
 			$counter = bcadd($low, bcmul(bcsub($high, $low), '0.5', 0)); // at least +1
 			$slug = BaseIntEncoder::encode($counter, $glyphs, $base);
 			$stmt = $db->prepare("SELECT custom_url, redir_type FROM {$prefix}urls WHERE  custom_url = :slug AND "
@@ -414,10 +414,10 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 				$low = $counter;
 				if(LOG_MODE) bc_log($slug.' was occupied (counter: '.$counter.')');
 			}
-			
+
 		}
-		
-		
+
+
 		$total_attempts_remaining += 50;
 		$validated = true;
 		// (Carefully, loopingly) Insert!
@@ -429,7 +429,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 				include('pages/error.php');
 				exit;
 			}
-			
+
 			if( ! $validated){
 				$stmt = $db->prepare("SELECT custom_url, redir_type FROM {$prefix}urls WHERE  custom_url = :slug AND "
     .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
@@ -438,14 +438,14 @@ if (isset($_GET['url']) && !empty($_GET['url']))
     ." :slug");
 				$stmt->execute(array('slug'=>$slug));
 				$row = $stmt->fetch(PDO::FETCH_ASSOC);
-				if($row) 
+				if($row)
 				{
 					$counter = bcadd($counter, '1');
 					$slug = BaseIntEncoder::encode($counter, $glyphs, $base);
 					continue;
 				}
 			}
-			
+
 			if(USE_BANNED_WORD_LIST){
 				$banned_pos = bcurls_find_banned_word($slug);
 				if($banned_pos !== FALSE) {
@@ -456,7 +456,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 						$rollover = bcpow((string)$base, (string)$banned_pos);
 						bc_log('Rollover calculated: '.$rollover);
 						// and computure that a(base $base) = 11(base 10)
-						$already_in = BaseIntEncoder::decode(substr($slug, 0-$banned_pos), 
+						$already_in = BaseIntEncoder::decode(substr($slug, 0-$banned_pos),
 							$glyphs, $base);
 						bc_log('Already_in calculated: '.$already_in.' based on "'.substr($slug, 0-$banned_pos).'"');
 						// so (10 in base $base) in base 10 - 11 in base 10
@@ -472,15 +472,15 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 					$slug = BaseIntEncoder::encode($counter, $glyphs, $base);
 					$validated = false;
 					continue;
-				}	
-			}			
+				}
+			}
 			if(ADDITIONAL_HOMOGLYPHS_TO_AVOID){
 				$banned_pos = bcurls_find_banned_glyph($slug);
 				if($banned_pos !== FALSE) {
 					if($banned_pos > 0) {
 						$rollover = bcpow((string)$base, (string)$banned_pos);
 						bc_log('Rollover calculated: '.$rollover);
-						$already_in = BaseIntEncoder::decode(substr($slug, 0-$banned_pos), 
+						$already_in = BaseIntEncoder::decode(substr($slug, 0-$banned_pos),
 							$glyphs, $base);
 						bc_log('Already_in calculated: '.$already_in.' based on "'.substr($slug, 0-$banned_pos).'"');
 						$diff = bcsub($rollover,$already_in);
@@ -495,19 +495,19 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 					$slug = BaseIntEncoder::encode($counter, $glyphs, $base);
 					$validated = false;
 					continue;
-				}	
+				}
 			}
-			
-			// Actually insert 
+
+			// Actually insert
 			try{
 				$insert_result = bcurls_insert_url ($url, $checksum, $slug, $redir_type);
 				if($insert_result !== true) {
 					bc_log('Insertion result (not true)'.(string)$insert_result);
 					$counter = bcadd($counter, '1');
-					$slug = BaseIntEncoder::encode($counter, $glyphs, $base);	
+					$slug = BaseIntEncoder::encode($counter, $glyphs, $base);
 					$validated = false;
-					continue;			
-				} 
+					continue;
+				}
 			} catch(Exception $e){
 				bc_log('Exception inserting or incrementing counter.'.$e);
 				$error = $e;
@@ -517,19 +517,19 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 			bc_log('About to increment counter');
 			// Update counter
 			try{
-				// Update counter 
+				// Update counter
 				// Note it would be great if this was a strictly incremental
 				// and atomic operation: "If your current base10 is smaller
 				// than mine, change it to mine, database!"
 				// This would deal with simultaneous inserts.
-				$counter_update_sql = "UPDATE {$prefix}autoslug 
+				$counter_update_sql = "UPDATE {$prefix}autoslug
 					SET base10 = :base10
 					WHERE method = :method LIMIT 1";
 				$ctr_up = $db->prepare($counter_update_sql);
 				$ctr_up_res = $ctr_up->execute(array(
-					'method' => AUTO_SLUG_METHOD, 
+					'method' => AUTO_SLUG_METHOD,
 					'base10' => bcadd((string)$counter,'1'
-				))); 
+				)));
 				if(! $ctr_up_res) {
 					$error = 'Could not update the autoslug index (this will hurt insertion performance.) '
 						.$ctr_up->errorCode().': '.$ctr_up->errorInfo();
@@ -540,20 +540,20 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 				$error = (string) $e2;
 				bc_log('Could not update counter. '.$e2);
 			}
-			
+
 			break;
 		}
-		
+
 		if(LOG_MODE) bc_log('$total_attempts_remaining after finish: '.$total_attempts_remaining);
 	}
-	else 
+	else
 	{	// This is already in the DB, don't provide a new one
 		$slug = $existing_slug;
 	}
-	
+
 
 	$new_url = BCURLS_URL.$slug;
-	
+
 	if (isset($_GET['tweet']))
 	{
 		$_GET['redirect'] = 'https://twitter.com/?status=%l';
@@ -568,7 +568,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 		echo $new_url;
 		exit();
 	}
-	
+
 	include('pages/done.php');
 }
 else if(isset($_GET['stats']))  // Display stats
@@ -581,7 +581,7 @@ else if(isset($_GET['stats']))  // Display stats
 	$number_redirected = stats_total_redirects($db);
 	include('pages/stats.php');
 }
-elseif(isset($_GET['mark_gone']) && isset($_GET['slug']) && strlen(trim($_GET['slug']))) 
+elseif(isset($_GET['mark_gone']) && isset($_GET['slug']) && strlen(trim($_GET['slug'])))
 { // Mark a redirection as GONE
 	// TODO
 }
