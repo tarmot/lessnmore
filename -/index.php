@@ -31,9 +31,13 @@ define('BCURLS_VERSION',	'2.0.1');
 
 define('BCURLS_DOMAIN', 	preg_replace('#^www\.#', '', $_SERVER['SERVER_NAME']));
 
-// Will be `http` or `https` to match the current request.
-// You can hardcode one of those values if you want.
-define('BCURLS_PROTOCOL', PROTOCOL_OVERRIDE || 'http' . ($_SERVER['HTTPS'] ? 's' : ''));
+// Defaults to `http` or `https` per the current request.
+// You can hardcode a a protocol in config.php.
+if (defined('PROTOCOL_OVERRIDE') && PROTOCOL_OVERRIDE) {
+	define('BCURLS_PROTOCOL', PROTOCOL_OVERRIDE);
+} else {
+	define('BCURLS_PROTOCOL', 'http' . ($_SERVER['HTTPS'] ? 's' : ''));
+}
 
 define('BCURLS_URL', 	str_replace('-/index.php', '', BCURLS_PROTOCOL.'://'.BCURLS_DOMAIN.$_SERVER['PHP_SELF']));
 define('BCURLS_PATH', 	realpath('.') );
