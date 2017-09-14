@@ -1,3 +1,11 @@
+2.3.0
+
+- Lessn More will now return `http:` or `https:` short URLs to match
+	the current protocol your server is responding to, by default.
+	You can manually specify your preferred protocol in `config.php`.
+
+- Lessn More lets you shrink non-Web URIs now, too, such as `ftp:` or `magnet:`.
+
 2.2.0
 
 - Better stats page.

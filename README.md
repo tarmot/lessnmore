@@ -1,4 +1,4 @@
-Lessn More 2.2.0
+Lessn More 2.3.0
 ================
 
 Homepage: <https://lessnmore.net>   
@@ -18,6 +18,8 @@ Lessn More is a free, open-source personal URL shortener.
 *	The ability to add multiple slugs that point to the same long URL, unlike Lessn
 *	Trims punctuation from the right of the slug, per [best practices][bestp]
 * Compatible with MySQL, Postgres, and SQLite
+* Will return `http:` or `https:` URLs to match the current protocol your server
+	is responding to, by default; you can manually specify your preferred protocol
 
 ### Attention to detail
 
@@ -101,6 +103,12 @@ Supports a custom timezone in `config.php`.
 
 Special thanks to [Matt Wiebe](https://github.com/mattwiebe) for a lot of these changes.
 
+### v2.3
+
+Returns `https://` short URLs when running on a secure server.
+
+Allows shrinking of non-Web URIs such as `ftp:` or `magnet:`.
+
 
 Legal
 -----
@@ -175,6 +183,12 @@ If you are upgrading from a previous version of Lessn or ButteredURLs:
 Just upload the latest copy of Lessn More to your server, but skip or delete install.php.
 
 Note that since v2.2, there is only a config-example.php file in the distribution, and no config.php file. You will _not_ need to take care to avoid overwriting your existing config.php file, but do take care not to replace the whole `/-/` folder and your config.php file; please make a backup copy of it before upgrading.
+
+### Upgrading from Lessn More 2.2 to 2.3
+
+You only need the new `/-/index.php` for this upgrade. Optionally, add the new
+`PROTOCOL_OVERRIDE` constant from `config-example.php` into your `config.php`.
+
 
 API
 ---
