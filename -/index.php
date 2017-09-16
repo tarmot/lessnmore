@@ -104,7 +104,14 @@ if (isset($_POST['username']))
 {
 	if (md5($_POST['username'].$_POST['password'].COOKIE_SALT) == COOKIE_VALUE)
 	{
-		setcookie(COOKIE_NAME, COOKIE_VALUE, NOW + YEAR, '/', COOKIE_DOMAIN);
+		setcookie(COOKIE_NAME,
+			COOKIE_VALUE,
+			NOW + YEAR,
+			'/',
+			COOKIE_DOMAIN,
+			$_SERVER['HTTPS'], // If we are on HTTPS, do not leak cookie to HTTP
+			true // HTTPONLY (don't let JS examine the cookie)
+		);
 		$_COOKIE[COOKIE_NAME] = COOKIE_VALUE;
 	}
 }
@@ -135,7 +142,14 @@ if (!isset($_COOKIE[COOKIE_NAME]) || $_COOKIE[COOKIE_NAME] != COOKIE_VALUE)
 // prolong login for another year, unless this is an API request
 else if (!isset($_GET['api']))
 {
-	setcookie(COOKIE_NAME, COOKIE_VALUE, NOW + YEAR, '/', COOKIE_DOMAIN);
+	setcookie(COOKIE_NAME,
+		COOKIE_VALUE,
+		NOW + YEAR,
+		'/',
+		COOKIE_DOMAIN,
+		$_SERVER['HTTPS'], // If we are on HTTPS, do not leak cookie to HTTP
+		true // HTTPONLY (don't let JS examine the cookie)
+	);
 }
 
 // Successfully logged in, so
