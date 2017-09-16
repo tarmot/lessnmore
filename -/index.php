@@ -27,7 +27,7 @@ REQUIRE 'config.php';
 REQUIRE 'db.php';
 REQUIRE 'stats.php';
 
-define('BCURLS_VERSION',	'2.0.1');
+define('BCURLS_VERSION',	'2.3.0');
 
 define('BCURLS_DOMAIN', 	preg_replace('#^www\.#', '', $_SERVER['SERVER_NAME']));
 
