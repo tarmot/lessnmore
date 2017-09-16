@@ -27,7 +27,7 @@ REQUIRE 'config.php';
 REQUIRE 'db.php';
 REQUIRE 'stats.php';
 
-define('BCURLS_VERSION',	'2.0.1');
+define('BCURLS_VERSION',	'2.3.0');
 
 define('BCURLS_DOMAIN', 	preg_replace('#^www\.#', '', $_SERVER['SERVER_NAME']));
 
@@ -133,8 +133,12 @@ if (isset($_GET['logout']))
 	header('Location:./');
 }
 
+function user_is_logged_in() {
+	return isset($_COOKIE[COOKIE_NAME]) && $_COOKIE[COOKIE_NAME] === COOKIE_VALUE;
+}
+
 // require login
-if (!isset($_COOKIE[COOKIE_NAME]) || $_COOKIE[COOKIE_NAME] != COOKIE_VALUE)
+if (!user_is_logged_in())
 {
 	include('pages/login.php');
 	exit();
