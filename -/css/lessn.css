@@ -147,3 +147,14 @@ h2.active:after {
 	bottom:-13px;
 	left:45%;
 }
+#footer-update-area {
+	font-size: 80%;
+	color: #666;
+	text-align: center;
+}
+#footer-update-area a {
+	all: unset;
+	color: #34a;
+	background-color: transparent;
+	text-decoration: underline;
+}

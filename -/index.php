@@ -612,6 +612,11 @@ elseif(isset($_GET['mark_gone']) && isset($_GET['slug']) && strlen(trim($_GET['s
 { // Mark a redirection as GONE
 	// TODO
 }
+elseif(isset($_GET['current_release']))
+{
+	require('current_release.php');
+	exit();
+}
 else
 {
 	include('pages/add.php');
