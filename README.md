@@ -1,4 +1,4 @@
-Lessn More 2.4.0
+Lessn More 2.4.1
 ================
 
 Homepage: <https://lessnmore.net>   
@@ -119,6 +119,10 @@ There is now a LOG OUT button
 
 Lessn More now checks for an updated version of itself whenever you use the web interface. (You still have to manually upgrade!)
 
+### 2.4.1
+
+Stopped checking for new versions of Lessn More whiled logged out, because it will always fail then.
+
 
 Legal
 -----
@@ -199,6 +203,10 @@ You only need the new `/-/index.php` for this upgrade. Optionally, add the new
 ### Upgrading from 2.3.0 to 2.4.0
 
 Just copy over all the files in `dist/` to your web server’s root (or wherever you previously installed Lessn More). Skip or delete install.php.
+
+### Upgrading from 2.4.0 to 2.4.1
+
+Only `-/stubs/footer.php` changed.
 
 
 API

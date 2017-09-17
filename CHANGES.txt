@@ -1,3 +1,8 @@
+2.4.1
+
+- Stopped checking for new versions of Lessn More whiled logged out, because it will always fail then.
+
+
 2.4.0
 
 - Users logging in over HTTPS will be authenticated with a cookie that will not leak out over HTTPS
