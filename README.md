@@ -204,9 +204,6 @@ You only need the new `/-/index.php` for this upgrade. Optionally, add the new
 
 Just copy over all the files in `dist/` to your web server’s root (or wherever you previously installed Lessn More). Skip or delete install.php.
 
-### Upgrading from 2.4.0 to 2.4.1
-
-Only `-/stubs/footer.php` changed.
 
 
 API
