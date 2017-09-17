@@ -13,12 +13,54 @@ next_version = gets.chomp
 
 exit unless next_version.match(/\A[\d\.]+\Z/)
 
+change_notes = []
+
+puts "Please enter the first bullet point for #{next_version}’s CHANGES:"
+
+loop do
+  next_change_note = gets.chomp
+
+  if next_change_note == "" then
+    break
+  else
+    change_notes << next_change_note
+    puts "Enter the next CHANGES bullet point (ENTER to stop):"
+  end
+end
+
+
+upgrade_paragraphs = []
+
+puts "Please enter the first paragraph of UPGRADE instructions for #{next_version}:"
+
+loop do
+  next_p = gets.chomp
+
+  if next_p == "" then
+    break
+  else
+    upgrade_paragraphs << next_p
+    puts "Enter the next UPGRADE paragraph (ENTER to stop):"
+  end
+end
+
 file = File.open(File.join(ROOT, 'README.md'), 'r')
 contents = file.read
 file.close
 
 file = File.open(File.join(ROOT, 'README.md'), 'w')
-file.puts contents.sub(/\ALessn More ([\d\.]+)/, "Lessn More #{next_version}")
+contents = contents.sub(
+  /\ALessn More ([\d\.]+)/,
+  "Lessn More #{next_version}"
+).sub(
+  /(\nLegal\n-----)/,
+  "\#\#\# #{next_version}\n\n#{change_notes.join("\n\n")}\n\n\\1"
+)
+contents = contents.sub(
+  /(\nAPI\n---)/,
+  "\#\#\# Upgrading from #{current_version} to #{next_version}\n\n#{upgrade_paragraphs.join("\n\n")}\n\\1"
+) unless upgrade_paragraphs.empty?
+file.puts contents
 file.close
 
 
@@ -36,5 +78,5 @@ contents = file.read
 file.close
 
 file = File.open(File.join(ROOT, 'CHANGES.txt'), 'w')
-file.puts "#{next_version}\n\n- \n\n#{contents}"
+file.puts "#{next_version}\n\n- #{change_notes.join("\n\n- ")}\n\n\n#{contents}"
 file.close
