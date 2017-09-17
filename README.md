@@ -122,6 +122,8 @@ Installation
 
 Installation instructions are different depending on if you are upgrading or doing a fresh install.
 
+All the following refer to files inside the `dist` folder.
+
 ### Fresh Install ###
 
 **ONLY** follow these instructions if you are not upgrading!
@@ -129,19 +131,13 @@ Installation instructions are different depending on if you are upgrading or doi
 0. Copy or rename /-/config-example.php to /-/config.php.
 
 1. Open /-/config.php in a plaintext editor and
-	create a Lessn username and password then enter your
-	database connection details.
-	You may also choose other settings such as
-	authentication salts, a default home page, and your current time zone.
+	create a Lessn username and password then enter your database connection details. You may also choose other settings such as authentication salts, a default home page, and your current time zone.
 
-2. For the shortest URLs possible, upload the contents of this
-	directory to your domain's root public folder.
+2. For the shortest URLs possible, upload the contents of this directory (`dist`) to your domain's root public folder.
 
-3. Visit http://doma.in/install.php to create the necessary
-	database tables. (Watch for errors.)
+3. Visit http://doma.in/install.php to create the necessary database tables. (Watch for errors.)
 
-4. Visit http://doma.in/-/ to log in & start using Lessn More!
-	Be sure to grab the bookmarklets.
+4. Visit http://doma.in/-/ to log in & start using Lessn More! Be sure to grab the bookmarklets.
 
 **NOTE:** If your Lessn'd urls aren't working you probably didn't
 upload the .htaccess file. Enable "Show invisible files"
@@ -149,6 +145,7 @@ in your FTP application. It's also possible that your host doesn't like
 the `<IfModule>` directives; try removed them and just leaving the
 `Rewrite*` lines that were wrapped by the `<IfModule>`.
 (This seems to happen on 1and1).
+Or, maybe you aren’t on Apache. That’s OK, probably — see the Requirements section.
 
 Upgrading
 ----------
