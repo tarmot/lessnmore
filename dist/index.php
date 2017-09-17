@@ -24,7 +24,7 @@ while($token != '') // Loop so we can handle aliases
 {
 	// Look up slug, after removing mistaken URL additions
 	$token = rtrim(urldecode($token), ')>]}.,-;!\'"');
-	
+
 	$stmt = $db->prepare('SELECT * FROM '.DB_PREFIX.'urls WHERE '
     .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
     .' custom_url = '
@@ -61,13 +61,13 @@ while($token != '') // Loop so we can handle aliases
 		}
 		//Unreachable, thanks to "else"
 	}
-	else 
+	else
 	{
 		// 404!
 		// no redirect
 		if (defined('ERROR_404_URL') && ERROR_404_URL !== NULL){
 			header("Location: ".ERROR_404_URL);
-			die;			
+			die;
 		} else {
 			header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
 			header('Status:404');

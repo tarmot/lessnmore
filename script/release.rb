@@ -58,7 +58,7 @@ contents = contents.sub(
 )
 contents = contents.sub(
   /(\nAPI\n---)/,
-  "\#\#\# Upgrading from #{current_version} to #{next_version}\n\n#{upgrade_paragraphs.join("\n\n")}\n\\1"
+  "\#\#\# Upgrading from #{current_version} to #{next_version}\n\n#{upgrade_paragraphs.join("\n\n")}\n\n\\1"
 ) unless upgrade_paragraphs.empty?
 file.puts contents
 file.close

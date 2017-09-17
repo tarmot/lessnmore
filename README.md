@@ -1,4 +1,4 @@
-Lessn More 2.3.0
+Lessn More 2.4.0
 ================
 
 Homepage: <https://lessnmore.net>   
@@ -109,6 +109,16 @@ Returns `https://` short URLs when running on a secure server.
 
 Allows shrinking of non-Web URIs such as `ftp:` or `magnet:`.
 
+### 2.4.0
+
+Users logging in over HTTPS will be authenticated with a cookie that will not leak out over HTTPS
+
+Cookies are now set with HTTP_ONLY, which means rogue JavaScript cannot steal your authentication cookie
+
+There is now a LOG OUT button
+
+Lessn More now checks for an updated version of itself whenever you use the web interface. (You still have to manually upgrade!)
+
 
 Legal
 -----
@@ -185,6 +195,10 @@ Note that since v2.2, there is only a config-example.php file in the distributio
 
 You only need the new `/-/index.php` for this upgrade. Optionally, add the new
 `PROTOCOL_OVERRIDE` constant from `config-example.php` into your `config.php`.
+
+### Upgrading from 2.3.0 to 2.4.0
+
+Just copy over all the files in `dist/` to your web server’s root (or wherever you previously installed Lessn More). Skip or delete install.php.
 
 
 API

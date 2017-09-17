@@ -1,3 +1,14 @@
+2.4.0
+
+- Users logging in over HTTPS will be authenticated with a cookie that will not leak out over HTTPS
+
+- Cookies are now set with HTTP_ONLY, which means rogue JavaScript cannot steal your authentication cookie
+
+- There is now a LOG OUT button
+
+- Lessn More now checks for an updated version of itself whenever you use the web interface. (You still have to manually upgrade!)
+
+
 2.3.0
 
 - Lessn More will now return `http:` or `https:` short URLs to match
