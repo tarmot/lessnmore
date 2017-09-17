@@ -1,5 +1,7 @@
 #!/usr/bin/ruby
 
+require 'fileutils'
+
 ROOT = File.expand_path(File.join(__dir__, '..'))
 
 file = File.open(File.join(ROOT, 'README.md'), 'r')
@@ -80,3 +82,22 @@ file.close
 file = File.open(File.join(ROOT, 'CHANGES.txt'), 'w')
 file.puts "#{next_version}\n\n- #{change_notes.join("\n\n- ")}\n\n\n#{contents}"
 file.close
+
+blogFilename = File.join(ROOT, "announce-#{next_version}.md")
+FileUtils.touch blogFilename
+blogFile = File.open(blogFilename, 'w')
+blogFile.puts <<END_BLOG.gsub(/VERSION/, next_version)
+# Announcing VERSION
+
+Lessn More VERSION has been released.
+
+### Upgrading
+
+As always, grab it from Github.
+
+<https://github.com/alanhogan/lessnmore>
+END_BLOG
+
+blogFile.puts "\n#{upgrade_paragraphs.join("\n\n")}\n\n"
+blogFile.puts '### What’s New?'
+blogFile.puts "\n- #{change_notes.join("\n\n- ")}\n"
