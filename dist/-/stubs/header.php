@@ -15,7 +15,7 @@ $id = basename($backtrace[0]['file'], '.php');
 <body id="<?php echo $id; ?>">
 <div id="top-bar">
   <div>
-    <a href="https://lessnmore.net/">Lessn More <?php echo BCURLS_VERSION ?></a>
+    <a href="?">Lessn More <?php echo BCURLS_VERSION ?></a>
   </div>
 
   <?php if (user_is_logged_in()) { ?>
