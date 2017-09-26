@@ -32,6 +32,12 @@ define('API_SALT',		'XqO)-O4K2595JMEOQ');
 // Best practices are documented at <https://alanhogan.com/tips/rel-shortlink-for-short-urls#service-homoglyphs>
 define('AUTO_SLUG_METHOD', 'base36'); //CHANGE to a *smart method!
 
+// Lessn was defined to return URLs like /0, /1, /2, /3 and so on,
+// but many people want 'unguessable' short URLs like /u7b3rx.
+// This option switches to such a method when an integer greater than 1 is set.
+// To retain the original behavior of sequential, short slugs, set to false.
+define('RANDOM_SLUG_LENGTH', 7);
+
 // String with any characters you would like to manually exclude from future
 // auto-generated URL slugs. false if not.
 // Note if you pick the 'smart' or 'mixed-smart' AUTO_SLUG_METHOD
