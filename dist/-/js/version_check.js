@@ -3,8 +3,10 @@
   const liveVersion = $('#footer-update-area').data('version');
 
   const showFailure = function() {
-    $('#footer-update-area').text(
-      'Failed while checking for a newer version of Lessn More.'
+    $('#footer-update-area').html(
+      'Failed while checking for a newer version of ' +
+      '<a href="https://lessnmore.net/" ' +
+      'title="Lessn More home page">Lessn More</a>.'
     );
   };
 
@@ -21,8 +23,10 @@
         const versionSpan = $('<span />').text(version);
 
         if (liveVersion === version) {
-          $('#footer-update-area').text(
-            'You’re on the latest version of Lessn More!'
+          $('#footer-update-area').html(
+            'You’re on the latest version of ' +
+            '<a href="https://lessnmore.net/" ' +
+            'title="Lessn More home page">Lessn More</a>!'
           );
         } else {
           $('#footer-update-area').html(
