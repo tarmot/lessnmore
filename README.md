@@ -4,21 +4,22 @@ Lessn More 2.4.1
 Homepage: <https://lessnmore.net>   
 Source/Fork: <https://github.com/alanhogan/lessnmore>
 
-Lessn More is a free, open-source personal URL shortener.
+Lessn More is a free, open-source personal URL shortener with a lot of enhancements over the original 2009 Lessn.
 
 ## Features
 
-*	The ability to use custom short URLs (slugs), unlike Lessn
-*	A bookmarklet that even supports custom short URLs
+*	The option to specify custom short URLs (`/rickroll`) when shrinking
+*	Your choice of bit.ly-style random URLs (`/fN6rBX`) or incremental (`/9`, `/a`, `/b`…)
+*	Bookmarklets for shrinking (and/or tweeting) URLs — with support for custom short URLs
+*	[Statistics][statsimg] on redirection usage
 *	An [API][] that supports the same commands as the web interface
-*	Different auto-shorten modes (optional mixed case),
-*	The ability to avoid lookalike characters, and
-*	An optional "banned word list" to prevent auto-generating offensive URLs.
-*	Support for more shortened URLs than Lessn
-*	The ability to add multiple slugs that point to the same long URL, unlike Lessn
-*	Trims punctuation from the right of the slug, per [best practices][bestp]
-* Compatible with MySQL, Postgres, and SQLite
-* Will return `http:` or `https:` URLs to match the current protocol your server
+*	Your choice of all-lowercase or mixed-case short URLs, and whether or not to avoid lookalike characters
+*	An optional "banned word list" to prevent auto-generating offensive URLs
+*	Theoretically works with a huge number of URLs in the database
+*	The ability to add multiple redirections that point to the same long URL
+*	Trims punctuation from the right of the slug (the unique part of the short URL), per [best practices][bestp]
+*	Compatible with MySQL for sure and _should_ work with Postgres and SQLite (these DBs are not officially supported, so use at your own risk and please contribute fixes)
+*	Will return `http:` or `https:` short URLs to match the current protocol your server
 	is responding to, by default; you can manually specify your preferred protocol
 
 ### Attention to detail
@@ -36,17 +37,18 @@ Lessn More is a free, open-source personal URL shortener.
 	on the order of O(1) (constant time).)
 *	Compliant with [URL shortener best practices and standards][bestp]
 	whenever possible
-*	An easy migration script will upgrade your database
-	from an existing Lessn migration.
+*	An [easy migration script](https://lessnmore.net/images/installation-script-screen-shot.png) will upgrade your database
+	from an existing Lessn or Lessn More installation.
 
 ### Caveats
 
-*	This shortener is not appropriate when there is a good chance that two or more URLs
+*	It is not recommended to use this shortener in incremental mode
+	when there is a good chance that two or more URLs
 	will be shrunk at the same time. (Simultaneous reads are, of course, fine.)
-*	Lessn More 2.0 is a new release and has not been fully tested on databases
-	other than MySQL. YMMV. Please [report any issues][issues].
-*	Changing settings such as the allowed character set, while a supported use case,
-	should be done seldom, and with deliberation.
+*	Lessn More is developed against MySQL and other databases are theoretically supported
+	via PDO, but YMMV. Please [report any issues][issues].
+*	Changing the character set used for URL generation, when in conjunction with incremental mode,
+	is a supported use case but should be done seldom, and with deliberation.
 
 [markdn]:  http://bit.ly/mkdnsyntax   "This document is written in Markdown."
 [convert]: http://tinyurl.com/mkdnwmd "Markdown editor with instant HTML preview"
@@ -55,11 +57,12 @@ Lessn More is a free, open-source personal URL shortener.
 
 [issues]:  https://github.com/alanhogan/lessnmore/issues "Bugs & Issues on GitHub"
 [API]:     https://lessnmore.net/api "Lessn More API documentation"
+[statsimg]: https://lessnmore.net/images/stats-this-week-lessn-more.png
 
 Requirements
 -------------
 
-* PHP 5.1+
+* PHP 5.6 or newer
 * PHP's PDO (usually included in PHP builds)
 * Database: MySQL (most solidly supported), PostgreSQL, or SQLite <small>(though [see this](https://github.com/alanhogan/lessnmore/issues/#issue/7) for SQLite support)</small>
 * While your server doesn’t need to be Apache, the project ships with an Apache `.htaccess` file to handle redirecting requests to the Lessn More redirection engine, for your convenience. Michael McKelvaney has written about [using Nginx instead][with-nginx]. For IIS, [bigworm reports success with this](https://github.com/alanhogan/lessnmore/issues/24).
