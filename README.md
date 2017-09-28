@@ -1,4 +1,4 @@
-Lessn More 2.5.0
+Lessn More 2.5.1
 ================
 
 Homepage: <https://lessnmore.net>   
@@ -132,6 +132,10 @@ Stopped checking for new versions of Lessn More whiled logged out, because it wi
 
 The link in LM's header now points to your main admin page,  and the update check info in the footer will always link to the LM project home page.
 
+### 2.5.1
+
+Fixes JavaScript and the Back button on the stats page when on HTTPS.
+
 
 Legal
 -----
@@ -217,6 +221,10 @@ Just copy over all the files in `dist/` to your web server’s root (or wherever
 ### Upgrading from 2.4 to 2.5.0
 
 Please replace the files on your site with those in the `dist/` folder (keeping your config file). Add the new constant `RANDOM_SLUG_LENGTH` to your `config.php`. Be sure you get the new `random_compat` folder in `/-/library` if you are not on on PHP 7 or newer.
+
+### Upgrading from 2.5.0 to 2.5.1
+
+Only `/-/pages/stats.php` changed in this release.
 
 
 API

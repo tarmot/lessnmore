@@ -1,3 +1,8 @@
+2.5.1
+
+- Fixes JavaScript and the Back button on the stats page when on HTTPS.
+
+
 2.5.0
 
 - **Big news!** Now you can configure Lessn More to generate random slugs of a desired length instead of incremental, guessable slugs. This means you will generate URLs like `/8RTvaN`, `/Nvb3QP` instead of `/a`, `/b`, `/c`, if desired.
