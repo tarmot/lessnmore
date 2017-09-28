@@ -1,4 +1,4 @@
-Lessn More 2.4.1
+Lessn More 2.5.0
 ================
 
 Homepage: <https://lessnmore.net>   
@@ -126,6 +126,12 @@ Lessn More now checks for an updated version of itself whenever you use the web 
 
 Stopped checking for new versions of Lessn More whiled logged out, because it will always fail then.
 
+### 2.5.0
+
+**Big news!** Now you can configure Lessn More to generate random slugs of a desired length instead of incremental, guessable slugs. This means you will generate URLs like `/8RTvaN`, `/Nvb3QP` instead of `/a`, `/b`, `/c`, if desired.
+
+The link in LM's header now points to your main admin page,  and the update check info in the footer will always link to the LM project home page.
+
 
 Legal
 -----
@@ -207,6 +213,10 @@ You only need the new `/-/index.php` for this upgrade. Optionally, add the new
 
 Just copy over all the files in `dist/` to your web server’s root (or wherever you previously installed Lessn More). Skip or delete install.php.
 
+
+### Upgrading from 2.4 to 2.5.0
+
+Please replace the files on your site with those in the `dist/` folder (keeping your config file). Add the new constant `RANDOM_SLUG_LENGTH` to your `config.php`. Be sure you get the new `random_compat` folder in `/-/library` if you are not on on PHP 7 or newer.
 
 
 API

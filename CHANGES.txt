@@ -1,3 +1,10 @@
+2.5.0
+
+- **Big news!** Now you can configure Lessn More to generate random slugs of a desired length instead of incremental, guessable slugs. This means you will generate URLs like `/8RTvaN`, `/Nvb3QP` instead of `/a`, `/b`, `/c`, if desired.
+
+- The link in LM's header now points to your main admin page,  and the update check info in the footer will always link to the LM project home page.
+
+
 2.4.1
 
 - Stopped checking for new versions of Lessn More whiled logged out, because it will always fail then.
