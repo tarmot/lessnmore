@@ -24,13 +24,15 @@
 *	-	'alias' - Its 'url' is really just another slug. Do a recursive lookup to redirect on access.
 *	-	'gone' - Access results in a 410; should never change
 */
-REQUIRE 'config.php';
-REQUIRE 'db.php';
-REQUIRE 'stats.php';
+require_once('config.php');
+require_once('db.php');
+require_once('stats.php');
 
-define('BCURLS_VERSION',	'2.4.1');
+define('BCURLS_VERSION', '2.4.1');
 
-define('BCURLS_DOMAIN', 	preg_replace('#^www\.#', '', $_SERVER['SERVER_NAME']));
+define('BCURLS_DOMAIN',
+	preg_replace('#^www\.#', '', $_SERVER['SERVER_NAME'])
+);
 
 // Defaults to `http` or `https` per the current request.
 // You can hardcode a a protocol in config.php.
@@ -40,19 +42,19 @@ if (defined('PROTOCOL_OVERRIDE') && PROTOCOL_OVERRIDE) {
 	define('BCURLS_PROTOCOL', 'http' . ($_SERVER['HTTPS'] ? 's' : ''));
 }
 
-define('BCURLS_URL', 	str_replace('-/index.php', '', BCURLS_PROTOCOL.'://'.BCURLS_DOMAIN.$_SERVER['PHP_SELF']));
-define('BCURLS_PATH', 	realpath('.') );
+define('BCURLS_URL', str_replace('-/index.php', '', BCURLS_PROTOCOL.'://'.BCURLS_DOMAIN.$_SERVER['PHP_SELF']));
+define('BCURLS_PATH', realpath('.') );
 
 //don't reveal db prefix over HTTP. 16 chars is more than enough to avoid collisions
-define('COOKIE_NAME', 	substr(md5(DB_PREFIX.COOKIE_SALT), 4, 16).'auth');
-define('COOKIE_VALUE',	md5(USERNAME.PASSWORD.COOKIE_SALT));
+define('COOKIE_NAME', substr(md5(DB_PREFIX.COOKIE_SALT), 4, 16).'auth');
+define('COOKIE_VALUE', md5(USERNAME.PASSWORD.COOKIE_SALT));
 define('COOKIE_DOMAIN', '.'.BCURLS_DOMAIN);
 
 if (!defined('API_SALT')) define('API_SALT', 'B75jk4K25M5U7hTAP1'); // added in lessn 1.0.5
 define('API_KEY', md5(USERNAME.PASSWORD.API_SALT));
 
-define('NOW', 		time());
-define('YEAR',		365 * 24 * 60 * 60);
+define('NOW', time());
+define('YEAR', 365 * 24 * 60 * 60);
 
 define('MAXIMUM_RANDOM_SLUG_ATTEMPTS', 50);
 
