@@ -1,7 +1,7 @@
 <?php include('stubs/header.php'); ?>
 <div id="stats_body">
   <p>
-  	<a href="<?php echo BCURLS_URL ?>-/">&larr; Back</a>
+  	<a href="/-/">&larr; Back</a>
   	<?php echo APP_NAME ?> has shortened <strong><?php echo number_format($number_lessnd); ?></strong> URLs for <strong><?php echo number_format($number_redirected) ?></strong> redirects to date.
   </p>
   <h2>Today</h2>
@@ -51,7 +51,7 @@
   		<th class="shorturl">Lessn'd</th>
   		<th class="hits">Hits</th>
   	</tr>
-	
+
   <?php foreach($top_urls as $url) { ?>
   	<tr>
   		<td class="longurl"><?php stats_display_url( $url['url'] ); ?></td>
@@ -68,7 +68,7 @@
   		<th class="referers">Referrer</th>
   		<th class="hits">Hits</th>
   	</tr>
-	
+
   <?php foreach($top_referers as $url) { ?>
   <tr>
   	<td class="referers"><?php stats_display_url( htmlspecialchars($url['referer'], ENT_QUOTES, 'UTF-8') ); ?></td>
@@ -77,7 +77,7 @@
   <?php } ?>
   </table>
 </div>
-<script src="<?php echo BCURLS_URL ?>-/js/loader.php"></script>
+<script src="/-/js/loader.php"></script>
 <script>
 <?php
 	include BCURLS_PATH . '/js/lessn.js';
