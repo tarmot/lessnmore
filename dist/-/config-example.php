@@ -1,16 +1,23 @@
 <?php
 
 // LOGIN
-define('USERNAME',	'admin');
-define('PASSWORD',	'blarg');
+define('USERNAME',	'ville');
+define('PASSWORD',	'ville');
 
 // DATABASE
 define('DB_NAME', 		'lessn');
-define('DB_USERNAME', 	'lessn');
-define('DB_PASSWORD', 	'pass');
+define('DB_USERNAME', 	'ville');
+define('DB_PASSWORD', 	'ville');
 define('DB_PREFIX', 	'lessn_'); // Lessn More can share a database by prefixing table names
 define('DB_DRIVER',		'mysql'); // mysql, pgsql, sqlite (sqlite not fully tested)
 define('DB_SERVER', 	'localhost'); // You may able to leave as-is
+
+// CHAMILO DATABASE
+define('CHAMILO_DB_NAME', 		''); // Put chamilo database name, usually "chamilo"
+define('CHAMILO_DB_USERNAME', 	''); // Put Chamilo database user name
+define('CHAMILO_DB_PASSWORD', 	''); // Put Chamilo database password
+define('CHAMILO_DB_DRIVER',		'mysql'); // mysql, pgsql, sqlite (sqlite not fully tested)
+define('CHAMILO_DB_SERVER', 	'localhost'); // You may able to leave as-is
 
 // Enable statistics?
 define('RECORD_URL_STATS', true);
@@ -70,3 +77,5 @@ define('LOG_MODE', false); // Not recommended, a bit slower.
 // server protocol (http or https).
 // You can hardcode a value of 'http' or 'https' (no colon or slashes).
 define('PROTOCOL_OVERRIDE', false);
+
+define('DISPLAY_ERRORS', true);

@@ -1,11 +1,22 @@
 <?php
 
-function record_stats($db, $url_id) {
+/* function record_stats($db, $url_id) {
 	$stmt = $db->prepare('INSERT INTO '.DB_PREFIX.'url_stats (url_id, ip_address, referer, created_on) VALUES(?,?,?,?)');
 	$stmt->bindValue(1, $url_id);
 	$stmt->bindValue(2, $_SERVER['REMOTE_ADDR']);
 	$stmt->bindValue(3, isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null);
 	$stmt->bindValue(4, date('Y-m-d H:i:s'));
+	$stmt->execute();
+} */
+
+// CSF logging system with pin codes
+function record_stats($db, $url_id, $pin_code=null) {
+	$stmt = $db->prepare('INSERT INTO '.DB_PREFIX.'url_stats (url_id, ip_address, referer, created_on, pin_code) VALUES(?,?,?,?,?)');
+	$stmt->bindValue(1, $url_id);
+	$stmt->bindValue(2, $_SERVER['REMOTE_ADDR']);
+	$stmt->bindValue(3, isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null);
+	$stmt->bindValue(4, date('Y-m-d H:i:s'));
+	$stmt->bindValue(5, $pin_code);
 	$stmt->execute();
 }
 
