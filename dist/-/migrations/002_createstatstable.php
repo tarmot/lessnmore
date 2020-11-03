@@ -14,6 +14,7 @@ class CreateStatsTable extends Migration
 		$t->column('ip_address', 'inet');
 		$t->column('referer', 'text');
 		$t->column('created_on', 'datetime', array('null' => false));
+		$t->column('pin_code', 'string');
 		$t->save();
 	}
 	

@@ -165,15 +165,17 @@ define('OKAY_TO_SHOW_PAGES', true); //value doesn't matter
 /**
 *	WARNING! Provides NO checking and should ONLY be used internally!
 *	Returns TRUE *or* a string "error code: error info".
+* 	Protected parameter for CSF pin code protected short links
 */
-function bcurls_insert_url ($url, $checksum, $slug, $redir_type)
+function bcurls_insert_url ($url, $checksum, $slug, $redir_type, $protected)
 {
 	global $db;
-	$stmt = $db->prepare('INSERT INTO '.DB_PREFIX.'urls (url, checksum, custom_url, redir_type) VALUES(?, ?, ?, ?)');
+	$stmt = $db->prepare('INSERT INTO '.DB_PREFIX.'urls (url, checksum, custom_url, redir_type, protected) VALUES(?, ?, ?, ?, ?)');
 	$stmt->bindValue(1, $url);
 	$stmt->bindValue(2, $checksum);
 	$stmt->bindValue(3, $slug);
 	$stmt->bindValue(4, $redir_type);
+	$stmt->bindValue(5, $protected);
 	if($stmt->execute())
 		return true;
 	else
@@ -182,15 +184,17 @@ function bcurls_insert_url ($url, $checksum, $slug, $redir_type)
 /**
 *	WARNING! Provides NO checking and should ONLY be used internally!
 *	Returns TRUE *or* a string "error code: error info".
+*	Protected parameter for CSF pin code protected short links
 */
-function bcurls_update_slug ($url, $checksum, $slug, $redir_type)
+function bcurls_update_slug ($url, $checksum, $slug, $redir_type, $protected)
 {
 	global $db;
-	$stmt = $db->prepare('UPDATE '.DB_PREFIX.'urls SET url = ?, checksum = ?, redir_type = ? WHERE custom_url = ? ');
+	$stmt = $db->prepare('UPDATE '.DB_PREFIX.'urls SET url = ?, checksum = ?, redir_type = ?, protected = ? WHERE custom_url = ? ');
 	$stmt->bindValue(1, $url);
 	$stmt->bindValue(2, $checksum);
 	$stmt->bindValue(3, $redir_type);
-	$stmt->bindValue(4, $slug);
+	$stmt->bindValue(4, $protected);
+	$stmt->bindValue(5, $slug);
 	if($stmt->execute())
 		return true;
 	else
@@ -205,6 +209,9 @@ function bc_log($message){
 	if(!is_string($bc_log)) $bc_log = '';
 	if(LOG_MODE) $bc_log .= date('r - ')."$message \n";
 }
+
+// CSF protected with pin code value
+$protected = (isset($_GET['protected']) ? isset($_GET['protected']) : 0);
 
 // new shortcut
 if (isset($_GET['url']) && !empty($_GET['url']))
@@ -278,7 +285,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 			$redir_type = 'custom';
 			$slug = $custom_url;
 			// Update
-			$insert_result = bcurls_update_slug ($url, $checksum, $slug, $redir_type);
+			$insert_result = bcurls_update_slug ($url, $checksum, $slug, $redir_type, $protected);
 			if($insert_result !== true) {
 				$error = $insert_result;
 				include('pages/error.php');
@@ -290,7 +297,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 			$redir_type = 'custom';
 			$slug = $custom_url;
 			// Insert!
-			$insert_result = bcurls_insert_url ($url, $checksum, $slug, $redir_type);
+			$insert_result = bcurls_insert_url ($url, $checksum, $slug, $redir_type, $protected);
 			if($insert_result !== true) {
 				$error = $insert_result;
 				include('pages/error.php');
@@ -304,7 +311,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 		{
 			// User added a new custom short URL even though that URL is already in the DB
 			// Update old redirections so they are no more than aliases of the new one ;)
-			$update_to_alias_sql = "UPDATE {$prefix}urls SET redir_type = 'alias', url = :slug, checksum = :newchecksum WHERE checksum = :checksum AND url = :url AND "
+			$update_to_alias_sql = "UPDATE {$prefix}urls SET redir_type = 'alias', url = :slug, checksum = :newchecksum, protected = :protected WHERE checksum = :checksum AND url = :url AND "
     .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
     ." url = "
     .(DB_DRIVER === 'sqlite' ? '' : 'BINARY')
@@ -318,6 +325,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 				'checksum'		=> $checksum,
 			 	'url'			=> $url,
 				'slug'			=> $slug,
+				'protected'		=> $protected,
 				'newchecksum' 	=> (int) sprintf('%u', crc32($slug)),
 			));
 			unset($updt_a);
@@ -394,7 +402,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 
 				// Save the new slug
 				try {
-					$insert_result = bcurls_insert_url ($url, $checksum, $slug, $redir_type);
+					$insert_result = bcurls_insert_url ($url, $checksum, $slug, $redir_type, $protected);
 					if($insert_result === true) {
 						break; // Success
 					} else {
@@ -593,7 +601,7 @@ if (isset($_GET['url']) && !empty($_GET['url']))
 
 				// Actually insert
 				try{
-					$insert_result = bcurls_insert_url ($url, $checksum, $slug, $redir_type);
+					$insert_result = bcurls_insert_url ($url, $checksum, $slug, $redir_type, $protected);
 					if($insert_result !== true) {
 						bc_log('Insertion result (not true)'.(string)$insert_result);
 						$counter = bcadd($counter, '1');

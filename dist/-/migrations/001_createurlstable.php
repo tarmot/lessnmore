@@ -11,6 +11,7 @@ class CreateURLsTable extends Migration
 		$t->column('id', 'serial', array('primary_key' => true));
 		$t->column('url', 'text', array('null' => false));
 		$t->column('checksum', 'bigint', array('null' => false, 'unsigned' => true));
+		$t->column('protected', 'bool', array('null' => false, 'default' => 0)); // CSF mod column to know if short link is pin code protected
 		$t->save();
 		
 		$this->createIndex(DB_PREFIX.'urls', 'checksum', 'checksum_index');

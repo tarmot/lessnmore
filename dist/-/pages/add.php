@@ -6,7 +6,11 @@
 	<input type="text" id="url" name="url" placeholder="url" value="<?php echo htmlentities(@$_GET['url'], ENT_QUOTES, 'UTF-8')?>" />
 	<button>Shrink URL</button> <br />
 	<input type="text" name="custom_url" value="<?php echo htmlentities(@$_GET['custom_url'], ENT_QUOTES, 'UTF-8')?>" id="custom_url" placeholder="custom short url" /> 
-	<label for="custom_url">(optional slug)</label> 
+	<label for="custom_url">(optional slug)</label><br /><br />
+	
+	<!-- CSF protected by pin code from Chamilo feature -->
+	<input type="checkbox" name="protected" value="1"/>
+	<label for="protected">Protected by pin code from Chamilo</label>
 	
 	<?php if(isset($error)): ?>
 		<br />
