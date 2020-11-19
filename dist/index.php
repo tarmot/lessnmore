@@ -18,15 +18,21 @@ $code = (isset($_REQUEST['code']) ? $_REQUEST['code'] : '');
 $pin_code = (isset($_COOKIE['pin_code']) ? $_COOKIE['pin_code'] : '');
 $success = false;
 
-// Check if pin code exists in Chamilo database and the course is not yet deleted
+// Check if pin code exists in Chamilo database and the course is not yet deleted and the teacher is still in the course
 function check_code ($code) {
 	global $db_chamilo;
-	$stmt_pin_code = $db_chamilo->prepare('SELECT id FROM plugin_student_group WHERE '
+	$stmt_pin_code = $db_chamilo->prepare('SELECT g.id FROM plugin_student_group g, course_rel_user cru WHERE '
 	.(CHAMILO_DB_DRIVER === 'sqlite' ? '' : 'BINARY')
-	.' id = :pin_code '
+	.' g.id = :pin_code '
 	.'AND '
 	.(CHAMILO_DB_DRIVER === 'sqlite' ? '' : 'BINARY')
-	.' group_name NOT LIKE "%DELETED%"');
+	.' g.teacher_id=cru.user_id '
+	.'AND '
+	.(CHAMILO_DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+	.' g.course_id=cru.c_id '
+	.'AND '
+	.(CHAMILO_DB_DRIVER === 'sqlite' ? '' : 'BINARY')
+	.' g.group_name NOT LIKE "%DELETED%"');
 	$stmt_pin_code->execute(array('pin_code'=>$code));
 	return $stmt_pin_code->fetch(PDO::FETCH_ASSOC);
 }
